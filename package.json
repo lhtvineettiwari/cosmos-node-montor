@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "./node_modules/.bin/eslint . --ext .js"
+    "lint": "./node_modules/.bin/eslint . --ext .js",
+    "lint:fix": "./node_modules/.bin/eslint . --ext .js --fix"
   },
   "keywords": [],
   "author": "",

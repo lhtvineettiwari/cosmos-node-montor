@@ -17,7 +17,7 @@ const connectWebSocket = (urlObj) => {
     console.log(`Connected to ${name}`);
     if (downUrls.has(url)) {
       downUrls.delete(url);
-      sendTeamsMessage(`${name} node is up, \nNode Address: ${url.split(":")[1].replace(/\/\//, "")}`);
+      sendTeamsMessage(`${name} node is up, \nNode Address: ${url.split(':')[1].replace(/\/\//, '')}`);
     }
   });
   
@@ -25,7 +25,7 @@ const connectWebSocket = (urlObj) => {
     console.log(`Disconnected from ${name}`);
     if (!downUrls.has(url)) {
       downUrls.add(url);
-      sendTeamsMessage(`${name} node is down, \nNode Address: ${url.split(":")[1].replace(/\/\//, "")}`);
+      sendTeamsMessage(`${name} node is down, \nNode Address: ${url.split(':')[1].replace(/\/\//, '')}`);
     }
     setTimeout(() => connectWebSocket(urlObj), 5000); // Reconnect after 5 seconds
   });
@@ -44,7 +44,7 @@ const connectWebSocket = (urlObj) => {
 };
 
 const sendTeamsMessage = (message) => {
-  console.log(`Teams message sent: ${message}`)
+  console.log(`Teams message sent: ${message}`);
   console.log(message);
   axios.post(teamsUrl, { text: message })
     .then(() => console.log(`Teams message sent: ${message}`))
