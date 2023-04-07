@@ -10,7 +10,6 @@ pipeline {
             }
         }
         stage('JIRA') {
-            steps {
                 script {
                     def testIssue = [fields: [ project: [key: 'MIL'],
                                                 summary: 'New JIRA Created from Jenkins.',
@@ -21,8 +20,7 @@ pipeline {
 
                     echo response.successful.toString()
                     echo response.data.toString()
-                }
-            }
+                }  
         }
     }
     post {
