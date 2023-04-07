@@ -15,9 +15,9 @@ pipeline {
                   summary: 'New JIRA Created from Jenkins.',
                   description: 'New JIRA Created from Jenkins.',
                   issuetype: [id: '10004']]]
-                response = jiraNewIssue issue: testIssue, site: 'leewayjira'
-                echo response.successful.toString()
-                echo response.data.toString()
+               response = jiraNewIssue issue: testIssue, site: 'leewayjira'
+               echo response.successful.toString()
+               echo response.data.toString()
             }
         }
     }
