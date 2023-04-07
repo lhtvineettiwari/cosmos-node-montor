@@ -4,9 +4,16 @@ pipeline {
   stages {
     stage('Static Analysis') {
       steps {
-        sh 'npm install'
-        sh 'npm run lint -- --format=html --output-file=eslint-report.html'
-        junit 'eslint-report.xml'
+        script {
+          try {
+            sh 'npm install'
+            sh 'npm run lint -- --format=html --output-file=eslint-report.html'
+            junit 'eslint-report.xml'
+          } catch (error) {
+            currentBuild.result = 'UNSTABLE'
+            error("Static Analysis failed: ${error}")
+          }
+        }
       }
     }
     stage('JIRA') {
