@@ -14,10 +14,9 @@ pipeline {
         sh 'npm run lint -- --format=html --output-file=eslint-report.html || true'
       }
     }
-    }
     stage('JIRA') {
       steps {
-        script {
+          script {
           def testIssue = [fields: [project: [key: 'MIL'],
             summary: 'New JIRA Created from Jenkins.',
             description: 'New JIRA Created from Jenkins.',
