@@ -7,15 +7,19 @@ pipeline {
                 sh 'npm install'
                 sh 'npm run lint -- --format=html --output-file=eslint-report.html'
                 junit 'eslint-report.xml'
-                testIssue = [fields: [ project: [key: 'MIL'],
-                                                summary: 'New JIRA Created from Jenkins.',
-                                                description: 'New JIRA Created from Jenkins.',
-                                                issuetype: [id: '10004']]]
+            }
+        }
+        stage('JIRA') {
+            steps {
+                 def testIssue = [fields: [ project: [key: 'MIL'],
+                                 summary: 'New JIRA Created from Jenkins.',
+                                 description: 'New JIRA Created from Jenkins.',
+                                 issuetype: [id: '10004']]]
 
-                response = jiraNewIssue issue: testIssue, site: 'leewayjira'
+      response = jiraNewIssue issue: testIssue, site: 'leewayjira'
 
-                echo response.successful.toString()
-                echo response.data.toString()
+      echo response.successful.toString()
+      echo response.data.toString()
             }
         }
     }
