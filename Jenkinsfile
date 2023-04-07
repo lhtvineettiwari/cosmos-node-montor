@@ -11,7 +11,7 @@ pipeline {
     }      
     stage('Analyzer') {
       steps {
-        sh 'npm run lint -- --format=html --output-file=eslint-report.html' || true
+        sh 'npm run lint -- --format=html --output-file=eslint-report.html || true'
       }
     }
   }
