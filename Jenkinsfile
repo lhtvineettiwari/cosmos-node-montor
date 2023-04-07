@@ -14,6 +14,23 @@ pipeline {
         sh 'npm run lint -- --format=html --output-file=eslint-report.html || true'
       }
     }
+    }
+    stage('JIRA') {
+      steps {
+        script {
+          def testIssue = [fields: [project: [key: 'MIL'],
+            summary: 'New JIRA Created from Jenkins.',
+            description: 'New JIRA Created from Jenkins.',
+            issuetype: [id: '10004']
+          ]]
+
+          response = jiraNewIssue issue: testIssue, site: 'leewayjira'
+
+          echo response.successful.toString()
+          echo response.data.toString()
+        }
+      }
+    }
   }
   post {
     always {
