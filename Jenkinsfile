@@ -9,10 +9,10 @@ pipeline {
         script {
           def errorCount = sh(script: "grep -c 'error' eslint-report.html", returnStdout: true).trim()
           if (errorCount.toInteger() > 0) {
-            def testIssue = [ fields: [ project: [key: 'DP'],
+            def testIssue = [ fields: [ project: [key: 'MIL'],
                             summary: 'New JIRA Created from Jenkins for ESLint errors',
                             description: 'ESLint test found ' + errorCount + ' errors. Please fix the errors in the code.',
-                            issuetype: [id: '11301']
+                            issuetype: [id: '10004']
                         ]
                     ]
             def response = jiraNewIssue issue: testIssue, site: 'leewayjira'
