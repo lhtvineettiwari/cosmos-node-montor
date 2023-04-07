@@ -18,8 +18,8 @@ pipeline {
       steps {
           script {
           def testIssue = [fields: [project: [key: 'MIL'],
-            summary: 'Bug report Created from for project'+ env.JOB_NAME,
-            description: 'Created from Jenkins for project ' + env.JOB_NAME + ', Please find the attached static analysis report.\n\n' + readFile('eslint-report.html'),
+            summary: 'Bug report Created from for project '+ env.JOB_NAME,
+            description: 'Created from Jenkins for project ' + env.JOB_NAME + ', Please find the attached static analysis report.\n\n',
             issuetype: [id: '10004']
           ]]
 
@@ -27,6 +27,12 @@ pipeline {
 
           echo response.successful.toString()
           echo response.data.toString()
+          def attachmentFile = new File('eslint-report.html')
+          jiraUploadAttachment idOrKey: response.data.key,
+                           site: 'leewayjira',
+                           attachmentFile: attachmentFile,
+                           attachmentFileName: 'eslint-report.html'
+
         }
       }
     }
