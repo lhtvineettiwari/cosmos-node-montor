@@ -19,7 +19,7 @@ pipeline {
           script {
           def testIssue = [fields: [project: [key: 'MIL'],
             summary: 'Bug report Created from for project '+ env.JOB_NAME,
-            description: 'Created from Jenkins for project ' + env.JOB_NAME + ', Please find the attached static analysis report.\n\n',
+            description: 'Bug report Created from Jenkins for project ' + env.JOB_NAME + ', Please find the attached static analysis report.\n\n',
             issuetype: [id: '10004']
           ]]
 
