@@ -30,8 +30,7 @@ pipeline {
           def attachmentFile = new File('eslint-report.html')
           jiraUploadAttachment idOrKey: response.data.key,
                            site: 'leewayjira',
-                           attachmentFile: attachmentFile,
-                           attachmentFileName: 'eslint-report.html'
+                           file: 'eslint-report.html'
 
         }
       }
