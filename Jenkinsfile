@@ -18,8 +18,8 @@ pipeline {
       steps {
           script {
           def testIssue = [fields: [project: [key: 'MIL'],
-            summary: 'New JIRA Created from Jenkins.',
-            description: 'New JIRA Created from Jenkins.',
+            summary: 'Bug report Created from for project ${env.JOB_NAME}',
+            description: 'Created from Jenkins for project ${env.JOB_NAME}. Please find the attached static analysis report.',
             issuetype: [id: '10004']
           ]]
 
@@ -27,6 +27,8 @@ pipeline {
 
           echo response.successful.toString()
           echo response.data.toString()
+          def reportPath = "${env.WORKSPACE}/eslint-report.html"
+          jiraAttachFile idOrKey: response.data.key, site: 'leewayjira', attachment: reportPath
         }
       }
     }
