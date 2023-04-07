@@ -11,7 +11,7 @@ pipeline {
             junit 'eslint-report.xml'
           } catch (error) {
             currentBuild.result = 'UNSTABLE'
-            error("Static Analysis failed: ${error.toString()}")
+            error("Static Analysis failed")
           }
         }
       }
