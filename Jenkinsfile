@@ -1,14 +1,23 @@
+
 pipeline {
-  agent any 
+  agent any
+    
+  tools {nodejs "node"}
+    
   stages {
-    stage('Static Analysis') {
+     
+    stage('Dependencies') {
       steps {
-        script {
-          sh 'npm install'
-          sh 'npm run lint -- --format=html --output-file=eslint-report.html'
-          sh 'npm start'
-        }
+        sh 'npm install'
+      }
+    }  
+    
+            
+    stage('Analyzer') {
+      steps {
+        sh 'npm run lint -- --format=html --output-file=eslint-report.html'
       }
     }
   }
 }
+          
