@@ -14,7 +14,7 @@ pipeline {
         script {
           def errorCount=sh(script: "cat eslint-report.json | jq '.[].errorCount'", returnStdout: true).trim()
           if (errorCount == "0") {
-            sh 'rm eslint-report.json'
+          sh 'rm eslint-report.json'
           }
         }
       }
@@ -36,8 +36,8 @@ pipeline {
           echo response.successful.toString()
           echo response.data.toString()
           jiraUploadAttachment idOrKey: response.data.key,
-                           site: 'leewayjira',
-                           file: 'eslint-report.json'
+            site: 'leewayjira',
+            file: 'eslint-report.json'
 
         }
       }
@@ -45,10 +45,14 @@ pipeline {
   }
   post {
     always {
-      emailext body: 'Static analysis report attached.',
-        attachmentsPattern: 'eslint-report.*',
-        subject: 'Static Analysis Report',
-        to: 'rogelio.stracke@ethereal.email'
+      script {
+        if (fileExists('eslint-report.json')) {
+          emailext body: 'Static analysis report attached.',
+            attachmentsPattern: 'eslint-report.*',
+            subject: 'Static Analysis Report',
+            to: 'rogelio.stracke@ethereal.email'
+        }
+      }
     }
   }
 }
