@@ -15,5 +15,13 @@ pipeline {
       }
     }
   }
+  post {
+    always {
+      emailext body: 'Static analysis report attached.',
+        attachmentsPattern: 'eslint-report.*',
+        subject: 'Static Analysis Report',
+        to: 'rogelio.stracke@ethereal.email'
+    }
+  }
 }
           
