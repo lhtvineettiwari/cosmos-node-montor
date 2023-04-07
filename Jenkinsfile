@@ -27,10 +27,10 @@ pipeline {
      stage('JIRA') {
             steps {
                 script {
-                    def testIssue = [ fields: [ project: [key: 'DP'],
-                            summary: 'New JIRA Created from Jenkins.',
-                            description: 'New JIRA Created from Jenkins.',
-                            issuetype: [id: '11301']
+                    def testIssue = [ fields: [ project: [key: 'MIL'],
+                            summary: 'Bug report from Jenkins.',
+                            description: 'Bugs from deployed project.',
+                            issuetype: [id: '10004']
                         ]
                     ]
                     def response = jiraNewIssue issue: testIssue, site: 'leewayjira'
