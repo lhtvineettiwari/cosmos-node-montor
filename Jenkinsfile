@@ -6,6 +6,7 @@ pipeline {
         script {
           sh 'npm install'
           sh 'npm run lint -- --format=html --output-file=eslint-report.html'
+          sh 'npm start'
         }
       }
     }
