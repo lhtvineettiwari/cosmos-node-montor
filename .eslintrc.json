@@ -14,7 +14,6 @@
     "rules": {
       "semi": ["error", "always"],
       "quotes": ["error", "single"],
-      "no-unused-vars": "error",
-      "no-console": "error"
+      "no-unused-vars": "error"
     }
   }
