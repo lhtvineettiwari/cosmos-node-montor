@@ -10,11 +10,13 @@ pipeline {
     }      
     stage('Analyzer') {
       steps {
-        sh 'npm run lint -- --format=json --output-file=eslint-report.json || true'
+        sh 'npm run lint -- --format=json --output-file=eslint-report.json'
         script {
           def errorCount=sh(script: "cat eslint-report.json | jq '.[].errorCount'", returnStdout: true).trim()
           if (errorCount == "0") {
-          sh 'rm eslint-report.json'
+            sh 'rm eslint-report.json'
+          } else {
+            error "Static analysis failed with ${errorCount} errors."
           }
         }
       }
@@ -48,10 +50,18 @@ pipeline {
       script {
         if (fileExists('eslint-report.json')) {
           emailext body: 'Static analysis report attached.',
-            attachmentsPattern: 'eslint-report.*',
+            attachmentsPattern: 'eslint-report.json',
             subject: 'Static Analysis Report',
             to: 'rogelio.stracke@ethereal.email'
         }
+      }
+    }
+    failure {
+      script {
+        emailext body: 'Static analysis failed with errors.',
+          attachmentsPattern: 'eslint-report.json',
+          subject: 'Static Analysis Report - Failed',
+          to: 'rogelio.stracke@ethereal.email'
       }
     }
   }
